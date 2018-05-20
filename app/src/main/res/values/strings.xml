@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartRestaurent</string>
+    <string name="app_name">SmartRestaurant</string>
     <string name="app_WelkomTekst">Welkom bij SmartRestaurant!</string>
     <string name="app_WelkomTekst_Scannen">Druk hier om uw tafel code te scannen!</string>
     <string name="app_btn_Scannen">Scan QR-code</string>
