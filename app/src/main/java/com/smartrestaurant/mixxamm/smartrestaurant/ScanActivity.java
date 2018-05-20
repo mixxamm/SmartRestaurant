@@ -1,4 +1,4 @@
-package com.smartrestaurant.mixxamm.smartrestaurent;
+package com.smartrestaurant.mixxamm.smartrestaurant;
 
 import android.Manifest;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.smartrestaurant.mixxamm.smartrestaurent.R;
 
 import java.io.IOException;
 
