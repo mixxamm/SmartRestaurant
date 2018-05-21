@@ -26,8 +26,8 @@ public class MenuActivity extends AppCompatActivity {
         try {
             JSONObject jsonobject = new JSONObject(qr);
             restaurant = jsonobject.getString("restaurant");
-            restaurantID = jsonobject.getString("restaurantID");
             table = jsonobject.getString("table");
+            restaurantID = jsonobject.getString("restaurantID");
         } catch (JSONException e) {
             restaurant = "Niet gevonden";
             restaurantID = "Niet gevonden";

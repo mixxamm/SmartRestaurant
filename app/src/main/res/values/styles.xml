@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="btn_scnannen" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="btn_scannen" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/colorTextSoft</item>
