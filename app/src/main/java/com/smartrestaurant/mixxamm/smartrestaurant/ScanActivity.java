@@ -19,8 +19,9 @@ import com.smartrestaurant.mixxamm.smartrestaurent.R;
 
 import java.io.IOException;
 
-public class ScanActivity extends AppCompatActivity {
 
+public class ScanActivity extends AppCompatActivity {
+    public static boolean scanned = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,14 +83,14 @@ public class ScanActivity extends AppCompatActivity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
-                if(barcodes.size() > 0) {
+                if(barcodes.size() > 0 && !scanned) {
                     Intent intent = new Intent(ScanActivity.this, MenuActivity.class);
                     intent.putExtra("QR-code", barcodes.valueAt(0).rawValue);
+                    scanned = true;
                     setResult(RESULT_OK, intent);
                     finish();
                     startActivity(intent);
-
-                }
+                    }
             }
         });
     }

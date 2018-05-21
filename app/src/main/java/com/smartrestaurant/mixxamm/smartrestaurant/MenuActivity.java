@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 public class MenuActivity extends AppCompatActivity {
 
-    public static String restaurant, table;
+    public static String restaurant, restaurantID, table;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +26,12 @@ public class MenuActivity extends AppCompatActivity {
         try {
             JSONObject jsonobject = new JSONObject(qr);
             restaurant = jsonobject.getString("restaurant");
+            restaurantID = jsonobject.getString("restaurantID");
             table = jsonobject.getString("table");
         } catch (JSONException e) {
+            restaurant = "Niet gevonden";
+            restaurantID = "Niet gevonden";
+            table = "Niet gevonden";
             e.printStackTrace();
         }
         txtTest.setSingleLine(false);
@@ -35,5 +39,10 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ScanActivity.scanned = false;
     }
 }
