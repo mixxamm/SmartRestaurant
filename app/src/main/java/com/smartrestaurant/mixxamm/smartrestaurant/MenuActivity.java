@@ -36,6 +36,8 @@ public class MenuActivity extends AppCompatActivity {
         }
         txtTest.setSingleLine(false);
         txtTest.setText("Restaurant: " + restaurant + " \nTafel: " + table);
+        Order order = new Order(MenuActivity.this);
+        order.execute("getMenu", restaurantID);
 
 
 
