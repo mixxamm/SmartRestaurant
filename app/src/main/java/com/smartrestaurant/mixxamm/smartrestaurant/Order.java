@@ -35,7 +35,7 @@ public class Order extends AsyncTask<String, Void, String> {
         context = context1;
     }
 
-    static String category, name;
+    static String category, name, price;
     @Override
     protected String doInBackground(String... params) {
         try {
@@ -73,6 +73,7 @@ public class Order extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject = new JSONObject(result);
                 category = jsonObject.getString("category");
                 name = jsonObject.getString("name");
+                price = jsonObject.getString("price");
                 bufferedReader.close();
                 inputStream.close();
                 httpsURLConnection.disconnect();
@@ -95,6 +96,7 @@ public class Order extends AsyncTask<String, Void, String> {
     protected  void onPostExecute(String result){
         Test.category = category;
         Test.name = name;
+        Test.price = price;
         Intent intent = new Intent(context, Test.class);
         context.startActivity(intent);
     }

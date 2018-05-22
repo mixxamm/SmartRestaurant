@@ -8,12 +8,12 @@ import com.smartrestaurant.mixxamm.smartrestaurent.R;
 
 public class Test extends AppCompatActivity {
 
-    public static String category, name;
+    public static String category, name, price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         TextView textView = findViewById(R.id.textViewTest);
-        textView.setText(category + ": " + name);
+        textView.setText(category + name + price);
     }
 }
