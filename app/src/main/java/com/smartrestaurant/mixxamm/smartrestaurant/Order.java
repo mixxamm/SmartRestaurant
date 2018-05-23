@@ -26,6 +26,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -94,10 +97,31 @@ public class Order extends AsyncTask<String, Void, String> {
 
     @Override
     protected  void onPostExecute(String result){
-        Test.category = category;
-        Test.name = name;
-        Test.price = price;
-        Intent intent = new Intent(context, Test.class);
+
+        List<String> listCategories = new ArrayList<>();
+        List<String> listNames = new ArrayList<>();
+        List<Double> listPrijzen = new ArrayList<>();
+
+        StringTokenizer STCAT = new StringTokenizer(category, "|");
+        while(STCAT.hasMoreTokens()) {
+            listCategories.add(STCAT.nextToken());
+        }
+
+        StringTokenizer STNAM = new StringTokenizer(name, "|");
+        while(STNAM.hasMoreTokens()) {
+            listCategories.add(STNAM.nextToken());
+        }
+
+        StringTokenizer STPR = new StringTokenizer(price, "|");
+        while(STPR.hasMoreTokens()) {
+            listCategories.add(STPR.nextToken());
+        }
+
+
+
+
+
+        Intent intent = new Intent(context, MenuActivity.class);
         context.startActivity(intent);
     }
 }
