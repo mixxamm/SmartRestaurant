@@ -52,7 +52,9 @@ public class CustomListviewAdaptor extends BaseAdapter implements ListAdapter {
 
         //Buttons
         Button deleteBtn = view.findViewById(R.id.btnVerwijderen);
+        deleteBtn.setText("-");
         Button addBtn = view.findViewById(R.id.btnToevoegen);
+        addBtn.setText("+");
 
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override

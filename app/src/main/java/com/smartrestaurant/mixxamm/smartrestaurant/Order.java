@@ -103,8 +103,11 @@ public class Order extends AsyncTask<String, Void, String> {
 
 
         StringTokenizer STNAM = new StringTokenizer(name, "|");
+        StringTokenizer STPR = new StringTokenizer(price, "|");
+        StringTokenizer STCAT = new StringTokenizer(category, "|");
         while(STNAM.hasMoreTokens()) {
-            listNames.add(STNAM.nextToken());
+            String product = STCAT.nextToken() + ":" + STNAM.nextToken() + ", " + STPR.nextToken();
+            listNames.add(product);
         }
 
         String[] strListNames = new String[listNames.size()];
