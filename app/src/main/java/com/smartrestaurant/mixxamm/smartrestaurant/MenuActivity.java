@@ -3,7 +3,6 @@ package com.smartrestaurant.mixxamm.smartrestaurant;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 import android.widget.ListView;
 
 import com.smartrestaurant.mixxamm.smartrestaurent.R;
@@ -11,22 +10,20 @@ import com.smartrestaurant.mixxamm.smartrestaurent.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 public class MenuActivity extends AppCompatActivity {
 
     public static String restaurant, restaurantID, table;
-    public static List<String> listCAT, listNam;
-    public static List<Double> listpr;
+
+    private ListView lvLijst;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        if (listCAT != null) {
+        if (getIntent().getStringArrayExtra("listName") == null) {
             //Vars
             //Menu inladen
-            TextView txtTest = findViewById(R.id.txtTest);
 
             Intent intent = getIntent();
             String qr = intent.getStringExtra("QR-code");
@@ -41,12 +38,16 @@ public class MenuActivity extends AppCompatActivity {
                 table = "Niet gevonden";
                 e.printStackTrace();
             }
-            txtTest.setSingleLine(false);
-            txtTest.setText("Restaurant: " + restaurant + " \nTafel: " + table);
             Order order = new Order(MenuActivity.this);
             order.execute("getMenu", restaurantID);
         }else{
-            //TODO
+            lvLijst = findViewById(R.id.lvLijst);
+
+            String[] listNames = getIntent().getStringArrayExtra("listName");
+            CustomListviewAdaptor adaptor = new CustomListviewAdaptor(listNames, this);
+
+
+            lvLijst.setAdapter(adaptor);
         }
 
 

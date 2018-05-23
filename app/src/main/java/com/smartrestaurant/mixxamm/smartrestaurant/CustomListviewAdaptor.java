@@ -11,28 +11,26 @@ import android.widget.TextView;
 
 import com.smartrestaurant.mixxamm.smartrestaurent.R;
 
-import java.util.ArrayList;
-
 public class CustomListviewAdaptor extends BaseAdapter implements ListAdapter {
 
-    private ArrayList<String> list = new ArrayList<String>();
+    private String[] list;
     private Context context;
 
 
 
-    public CustomListviewAdaptor(ArrayList<String> list, Context context) {
+    public CustomListviewAdaptor(String[] list, Context context) {
         this.list = list;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return list.length;
     }
 
     @Override
     public Object getItem(int pos) {
-        return list.get(pos);
+        return list[pos];
     }
 
     @Override
@@ -50,7 +48,7 @@ public class CustomListviewAdaptor extends BaseAdapter implements ListAdapter {
 
         //Textviews
         TextView listItemText = view.findViewById(R.id.txtProduct);
-        listItemText.setText(list.get(position));
+        listItemText.setText(list[position]);
 
         //Buttons
         Button deleteBtn = view.findViewById(R.id.btnVerwijderen);
@@ -59,7 +57,7 @@ public class CustomListviewAdaptor extends BaseAdapter implements ListAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                list.remove(position);
+                list[position].replace(list[position], null);
                 notifyDataSetChanged();
             }
         });

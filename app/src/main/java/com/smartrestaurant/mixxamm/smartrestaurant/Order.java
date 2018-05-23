@@ -3,17 +3,15 @@ package com.smartrestaurant.mixxamm.smartrestaurant;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.security.ProviderInstaller;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,7 +21,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class Order extends AsyncTask<String, Void, String> {
         context = context1;
     }
 
-    static String category, name, price;
+    private String category, name, price;
     @Override
     protected String doInBackground(String... params) {
         try {
@@ -96,32 +93,27 @@ public class Order extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected  void onPostExecute(String result){
+    protected void onPostExecute(String result){
+
+        Log.d("Test", name);
 
         List<String> listCategories = new ArrayList<>();
         List<String> listNames = new ArrayList<>();
         List<Double> listPrijzen = new ArrayList<>();
 
-        StringTokenizer STCAT = new StringTokenizer(category, "|");
-        while(STCAT.hasMoreTokens()) {
-            listCategories.add(STCAT.nextToken());
-        }
 
         StringTokenizer STNAM = new StringTokenizer(name, "|");
         while(STNAM.hasMoreTokens()) {
-            listCategories.add(STNAM.nextToken());
+            listNames.add(STNAM.nextToken());
         }
 
-        StringTokenizer STPR = new StringTokenizer(price, "|");
-        while(STPR.hasMoreTokens()) {
-            listCategories.add(STPR.nextToken());
-        }
-
-
+        String[] strListNames = new String[listNames.size()];
+        strListNames = listNames.toArray(strListNames);
 
 
 
         Intent intent = new Intent(context, MenuActivity.class);
+        intent.putExtra("listName", strListNames);
         context.startActivity(intent);
     }
 }
