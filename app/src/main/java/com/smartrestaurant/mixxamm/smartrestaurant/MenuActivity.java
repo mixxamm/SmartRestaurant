@@ -8,7 +8,6 @@ import com.smartrestaurant.mixxamm.smartrestaurent.R;
 
 public class MenuActivity extends AppCompatActivity {
 
-    public static String restaurant, restaurantID, table;
 
     private ListView lvLijst;
     CustomListviewAdaptor adaptor;

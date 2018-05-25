@@ -53,20 +53,29 @@ public class CustomListviewAdaptor extends BaseAdapter implements ListAdapter {
 
         //Buttons
         Button deleteBtn = view.findViewById(R.id.btnVerwijderen);
-        deleteBtn.setText("T");
+        deleteBtn.setText("V");
         Button addBtn = view.findViewById(R.id.btnToevoegen);
-        addBtn.setText("V");
+        addBtn.setText("T");
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int intAantal = Integer.parseInt(txtAantal.getText().toString());
+                if (intAantal == 0) {
+                    //Niets, kan niet lager dan 0
+                }else {
+                    intAantal--;
+                    txtAantal.setText(String.valueOf(intAantal));
+                }
             }
         });
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtAantal.setText("5");
+                int intAantal = Integer.parseInt(txtAantal.getText().toString());
+                intAantal++;
+                txtAantal.setText(String.valueOf(intAantal));
             }
         });
 
