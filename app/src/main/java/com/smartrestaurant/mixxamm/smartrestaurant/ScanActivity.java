@@ -32,7 +32,7 @@ public class ScanActivity extends AppCompatActivity {
         final CameraSource cameraSource;
         SurfaceHolder holder;
 
-        CameraView = (SurfaceView) findViewById(R.id.cameraView);
+        CameraView = findViewById(R.id.cameraView);
         CameraView.setZOrderMediaOverlay(true);
         holder = CameraView.getHolder();
         barcode = new BarcodeDetector.Builder(this).

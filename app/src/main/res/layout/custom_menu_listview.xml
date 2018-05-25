@@ -23,24 +23,32 @@
 
     <Button
         android:id="@+id/btnToevoegen"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Toevoegen"
-        app:layout_constraintEnd_toStartOf="@+id/btnVerwijderen"
-        app:layout_constraintStart_toEndOf="@+id/txtProduct"
+        app:layout_constraintEnd_toStartOf="@id/aantal"
+        app:layout_constraintStart_toEndOf="@id/txtProduct"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Toevoegen" />
+    <EditText
+        android:id="@+id/aantal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintStart_toStartOf="@id/btnToevoegen"
+        app:layout_constraintEnd_toEndOf="@id/btnVerwijderen" />
 
     <Button
         android:id="@+id/btnVerwijderen"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="Verwijderen"
+        app:layout_constraintStart_toEndOf="@id/aantal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Verwijderen" />
