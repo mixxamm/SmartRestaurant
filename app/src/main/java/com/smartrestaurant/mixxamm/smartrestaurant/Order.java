@@ -106,7 +106,7 @@ public class Order extends AsyncTask<String, Void, String> {
         StringTokenizer STPR = new StringTokenizer(price, "|");
         StringTokenizer STCAT = new StringTokenizer(category, "|");
         while(STNAM.hasMoreTokens()) {
-            String product = STCAT.nextToken() + ":" + STNAM.nextToken() + ", " + STPR.nextToken();
+            String product = STCAT.nextToken() + ": " + STNAM.nextToken() + ", €" + STPR.nextToken().replace(".", ",");
             listNames.add(product);
         }
 
@@ -119,4 +119,6 @@ public class Order extends AsyncTask<String, Void, String> {
         intent.putExtra("listName", strListNames);
         context.startActivity(intent);
     }
+
+
 }

@@ -39,7 +39,7 @@ public class CustomListviewAdaptor extends BaseAdapter implements ListAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -49,24 +49,24 @@ public class CustomListviewAdaptor extends BaseAdapter implements ListAdapter {
         //Textviews
         TextView listItemText = view.findViewById(R.id.txtProduct);
         listItemText.setText(list[position]);
+        final TextView txtAantal = view.findViewById(R.id.aantal);
 
         //Buttons
         Button deleteBtn = view.findViewById(R.id.btnVerwijderen);
-        deleteBtn.setText("-");
+        deleteBtn.setText("T");
         Button addBtn = view.findViewById(R.id.btnToevoegen);
-        addBtn.setText("+");
+        addBtn.setText("V");
 
-        deleteBtn.setOnClickListener(new View.OnClickListener(){
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                list[position].replace(list[position], null);
-                notifyDataSetChanged();
+            public void onClick(View view) {
             }
         });
-        addBtn.setOnClickListener(new View.OnClickListener(){
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                notifyDataSetChanged();
+            public void onClick(View view) {
+                txtAantal.setText("5");
             }
         });
 

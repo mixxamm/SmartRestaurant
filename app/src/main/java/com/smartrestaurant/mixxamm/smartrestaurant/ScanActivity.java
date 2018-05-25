@@ -1,7 +1,6 @@
 package com.smartrestaurant.mixxamm.smartrestaurant;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +16,9 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.smartrestaurant.mixxamm.smartrestaurent.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 
@@ -31,6 +33,7 @@ public class ScanActivity extends AppCompatActivity {
         final BarcodeDetector barcode;
         final CameraSource cameraSource;
         SurfaceHolder holder;
+        final String restaurant, restaurantID, table;
 
         CameraView = findViewById(R.id.cameraView);
         CameraView.setZOrderMediaOverlay(true);
@@ -84,12 +87,28 @@ public class ScanActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if(barcodes.size() > 0 && !scanned) {
-                    Intent intent = new Intent(ScanActivity.this, MenuActivity.class);
-                    intent.putExtra("QR-code", barcodes.valueAt(0).rawValue);
                     scanned = true;
-                    setResult(RESULT_OK, intent);
                     finish();
-                    startActivity(intent);
+
+                    try {
+                        String qr = barcodes.valueAt(0).rawValue;
+                        JSONObject jsonobject = new JSONObject(qr);
+                        String restaurant = jsonobject.getString("restaurant");
+                        String table = jsonobject.getString("table");
+                        String restaurantID = jsonobject.getString("restaurantID");
+                        Order order = new Order(ScanActivity.this);
+                        order.execute("getMenu", restaurantID);
+
+                    } catch (JSONException e) {
+
+                        String restaurant = "Niet gevonden";
+                        String restaurantID = "Niet gevonden";
+                        String table = "Niet gevonden";
+                        e.printStackTrace();
+
+                    }
+
+
                     }
             }
         });
