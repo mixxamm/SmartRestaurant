@@ -41,6 +41,7 @@ public class MenuActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     int intCount = lvLijst.getAdapter().getCount();
                     int intTeller = 0;
+                    dblTotaal = 0;
 
                     while (intTeller < intCount) {
                         double dblPriceOne =  Double.parseDouble(listPrices[intTeller]);
