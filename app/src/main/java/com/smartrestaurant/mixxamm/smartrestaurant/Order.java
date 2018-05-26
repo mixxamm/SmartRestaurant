@@ -3,7 +3,6 @@ package com.smartrestaurant.mixxamm.smartrestaurant;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -95,53 +94,50 @@ public class Order extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result){
 
-        Log.d("Test", name);
 
         List<String> listCategories = new ArrayList<>();
         List<String> listNames = new ArrayList<>();
         List<String> listProducts = new ArrayList<>();
-        List<Double> listPrijzen = new ArrayList<>();
+        List<String> listPrices = new ArrayList<>();
 
 
         StringTokenizer STNAM = new StringTokenizer(name, "|");
         StringTokenizer STPR = new StringTokenizer(price, "|");
         StringTokenizer STCAT = new StringTokenizer(category, "|");
 
-        //Product lijst aanmaken voor listview
+        //Product lijsten aanmaken voor listview
         while(STNAM.hasMoreTokens()) {
-            String product = STCAT.nextToken() + ": " + STNAM.nextToken() + ", €" + STPR.nextToken().replace(".", ",");
+            //Vars
+            String strCat = STCAT.nextToken();
+            String strName = STNAM.nextToken();
+            String strPrice = STPR.nextToken();
+
+
+            String product = strCat + ": " + strName + ", €" + strPrice.replace(".", ",");
             listProducts.add(product);
+            listNames.add(strName);
+            listCategories.add(strCat);
+            listPrices.add(strPrice);
         }
+        //Lijsten omzetten
+
         String[] strListProducts = new String[listProducts.size()];
         strListProducts = listProducts.toArray(strListProducts);
 
-        //Lijsten aanmaken met naam, catogery en prijs voor backend
-        //Namen
-        while(STNAM.hasMoreTokens()) {
-            listProducts.add(STNAM.nextToken());
-        }
-        String[] strListNames = new String[listProducts.size()];
-        strListNames = listProducts.toArray(strListNames);
+        String[] strListNames = new String[listNames.size()];
+        strListNames = listNames.toArray(strListNames);
 
-        //Prijzen
-        while(STPR.hasMoreTokens()) {
-            listPrijzen.add(Double.parseDouble(STPR.nextToken()));
-        }
-        Double[] strListPrices = new Double[listPrijzen.size()];
-        strListPrices = listPrijzen.toArray(strListPrices);
+        String[] strListPrices = new String[listPrices.size()];
+        strListPrices = listPrices.toArray(strListPrices);
 
-        //Categoieën
-        while(STCAT.hasMoreTokens()) {
-            listCategories.add(STCAT.nextToken());
-        }
         String[] strListCats = new String[listCategories.size()];
         strListCats = listCategories.toArray(strListCats);
 
         Intent intent = new Intent(context, MenuActivity.class);
         intent.putExtra("listProducts", strListProducts);
-        intent.putExtra("listNames", strListProducts);
-        intent.putExtra("listPrices", strListProducts);
-        intent.putExtra("listCates", strListProducts);
+        intent.putExtra("listNames", strListNames);
+        intent.putExtra("listPrices", strListPrices);
+        intent.putExtra("listCates", strListCats);
 
         context.startActivity(intent);
     }
