@@ -53,7 +53,8 @@ public class MenuActivity extends AppCompatActivity {
                         intTeller++;
                     }
 
-                    Toast.makeText(getApplicationContext(), "Totaal prijs: " + String.valueOf(dblTotaal), Toast.LENGTH_LONG).show();
+                    Order order = new Order(MenuActivity.this);
+                    order.execute("placeOrder", "1", "1", "order");
                 }
             });
 

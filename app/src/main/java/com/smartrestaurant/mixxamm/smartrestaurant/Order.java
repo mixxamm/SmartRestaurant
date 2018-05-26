@@ -34,7 +34,7 @@ public class Order extends AsyncTask<String, Void, String> {
         context = context1;
     }
 
-    private String category, name, price;
+    private String type, category, name, price, eta;
     @Override
     protected String doInBackground(String... params) {
         try {
@@ -44,7 +44,7 @@ public class Order extends AsyncTask<String, Void, String> {
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
-        String type = params[0];
+        type = params[0];
         if("getMenu".equals(type)){
             String restaurantID = params[1];
             String urlString = "https://smartpass.one/smartrestaurant/getmenu.php";
@@ -87,6 +87,50 @@ public class Order extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
         }
+        else if("placeOrder".equals(type)){
+            String restaurantID = params[1];
+            String tableID = params[2];
+            String order = params[3];
+            String urlString = "https://smartpass.one/smartrestaurant/placeorder.php";
+            try {
+                URL url = new URL(urlString);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.setRequestMethod("POST");
+                httpsURLConnection.setDoOutput(true);
+                httpsURLConnection.setDoInput(true);
+                OutputStream outputStream = httpsURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String post_data = URLEncoder.encode("restaurantID", "UTF-8") + "=" + URLEncoder.encode(restaurantID, "UTF-8")
+                        + "&" + URLEncoder.encode("tableID", "UTF-8") + "=" + URLEncoder.encode(tableID, "UTF-8")
+                        + "&" + URLEncoder.encode("order", "UTF-8") + "=" + URLEncoder.encode(order, "UTF-8");
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line;
+                while((line = bufferedReader.readLine()) != null){
+                    result += line;
+                }
+
+                JSONObject jsonObject = new JSONObject(result);
+                /*eta = jsonObject.getString("eta");*/
+                bufferedReader.close();
+                inputStream.close();
+                httpsURLConnection.disconnect();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         return null;
     }
@@ -94,52 +138,54 @@ public class Order extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result){
 
-
-        List<String> listCategories = new ArrayList<>();
-        List<String> listNames = new ArrayList<>();
-        List<String> listProducts = new ArrayList<>();
-        List<String> listPrices = new ArrayList<>();
-
-
-        StringTokenizer STNAM = new StringTokenizer(name, "|");
-        StringTokenizer STPR = new StringTokenizer(price, "|");
-        StringTokenizer STCAT = new StringTokenizer(category, "|");
-
-        //Product lijsten aanmaken voor listview
-        while(STNAM.hasMoreTokens()) {
-            //Vars
-            String strCat = STCAT.nextToken();
-            String strName = STNAM.nextToken();
-            String strPrice = STPR.nextToken();
+        if("getMenu".equals(type)){
+            List<String> listCategories = new ArrayList<>();
+            List<String> listNames = new ArrayList<>();
+            List<String> listProducts = new ArrayList<>();
+            List<String> listPrices = new ArrayList<>();
 
 
-            String product = strCat + ": " + strName + ", €" + strPrice.replace(".", ",");
-            listProducts.add(product);
-            listNames.add(strName);
-            listCategories.add(strCat);
-            listPrices.add(strPrice);
+            StringTokenizer STNAM = new StringTokenizer(name, "|");
+            StringTokenizer STPR = new StringTokenizer(price, "|");
+            StringTokenizer STCAT = new StringTokenizer(category, "|");
+
+            //Product lijsten aanmaken voor listview
+            while(STNAM.hasMoreTokens()) {
+                //Vars
+                String strCat = STCAT.nextToken();
+                String strName = STNAM.nextToken();
+                String strPrice = STPR.nextToken();
+
+
+                String product = strCat + ": " + strName + ", €" + strPrice.replace(".", ",");
+                listProducts.add(product);
+                listNames.add(strName);
+                listCategories.add(strCat);
+                listPrices.add(strPrice);
+            }
+            //Lijsten omzetten
+
+            String[] strListProducts = new String[listProducts.size()];
+            strListProducts = listProducts.toArray(strListProducts);
+
+            String[] strListNames = new String[listNames.size()];
+            strListNames = listNames.toArray(strListNames);
+
+            String[] strListPrices = new String[listPrices.size()];
+            strListPrices = listPrices.toArray(strListPrices);
+
+            String[] strListCats = new String[listCategories.size()];
+            strListCats = listCategories.toArray(strListCats);
+
+            Intent intent = new Intent(context, MenuActivity.class);
+            intent.putExtra("listProducts", strListProducts);
+            intent.putExtra("listNames", strListNames);
+            intent.putExtra("listPrices", strListPrices);
+            intent.putExtra("listCates", strListCats);
+
+            context.startActivity(intent);
         }
-        //Lijsten omzetten
 
-        String[] strListProducts = new String[listProducts.size()];
-        strListProducts = listProducts.toArray(strListProducts);
-
-        String[] strListNames = new String[listNames.size()];
-        strListNames = listNames.toArray(strListNames);
-
-        String[] strListPrices = new String[listPrices.size()];
-        strListPrices = listPrices.toArray(strListPrices);
-
-        String[] strListCats = new String[listCategories.size()];
-        strListCats = listCategories.toArray(strListCats);
-
-        Intent intent = new Intent(context, MenuActivity.class);
-        intent.putExtra("listProducts", strListProducts);
-        intent.putExtra("listNames", strListNames);
-        intent.putExtra("listPrices", strListPrices);
-        intent.putExtra("listCates", strListCats);
-
-        context.startActivity(intent);
     }
 
 
