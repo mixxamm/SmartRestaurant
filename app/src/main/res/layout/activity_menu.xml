@@ -6,10 +6,28 @@
     android:layout_height="match_parent"
     tools:context="com.smartrestaurant.mixxamm.smartrestaurant.MenuActivity">
 
-    <ListView
-        android:id="@+id/lvLijst"
+    <Button
+        android:id="@+id/btnBetalen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvLijst"
+        tools:text="Betalen" />
+
+    <ListView
+        android:id="@+id/lvLijst"
+        android:layout_width="0dp"
+        android:layout_height="435dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ListView>
 </android.support.constraint.ConstraintLayout>

@@ -99,24 +99,50 @@ public class Order extends AsyncTask<String, Void, String> {
 
         List<String> listCategories = new ArrayList<>();
         List<String> listNames = new ArrayList<>();
+        List<String> listProducts = new ArrayList<>();
         List<Double> listPrijzen = new ArrayList<>();
 
 
         StringTokenizer STNAM = new StringTokenizer(name, "|");
         StringTokenizer STPR = new StringTokenizer(price, "|");
         StringTokenizer STCAT = new StringTokenizer(category, "|");
+
+        //Product lijst aanmaken voor listview
         while(STNAM.hasMoreTokens()) {
             String product = STCAT.nextToken() + ": " + STNAM.nextToken() + ", €" + STPR.nextToken().replace(".", ",");
-            listNames.add(product);
+            listProducts.add(product);
         }
+        String[] strListProducts = new String[listProducts.size()];
+        strListProducts = listProducts.toArray(strListProducts);
 
-        String[] strListNames = new String[listNames.size()];
-        strListNames = listNames.toArray(strListNames);
+        //Lijsten aanmaken met naam, catogery en prijs voor backend
+        //Namen
+        while(STNAM.hasMoreTokens()) {
+            listProducts.add(STNAM.nextToken());
+        }
+        String[] strListNames = new String[listProducts.size()];
+        strListNames = listProducts.toArray(strListNames);
 
+        //Prijzen
+        while(STPR.hasMoreTokens()) {
+            listPrijzen.add(Double.parseDouble(STPR.nextToken()));
+        }
+        Double[] strListPrices = new Double[listPrijzen.size()];
+        strListPrices = listPrijzen.toArray(strListPrices);
 
+        //Categoieën
+        while(STCAT.hasMoreTokens()) {
+            listCategories.add(STCAT.nextToken());
+        }
+        String[] strListCats = new String[listCategories.size()];
+        strListCats = listCategories.toArray(strListCats);
 
         Intent intent = new Intent(context, MenuActivity.class);
-        intent.putExtra("listName", strListNames);
+        intent.putExtra("listProducts", strListProducts);
+        intent.putExtra("listNames", strListProducts);
+        intent.putExtra("listPrices", strListProducts);
+        intent.putExtra("listCates", strListProducts);
+
         context.startActivity(intent);
     }
 
