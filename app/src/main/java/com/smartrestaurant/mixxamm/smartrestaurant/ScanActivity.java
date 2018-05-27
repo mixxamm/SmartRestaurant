@@ -97,7 +97,7 @@ public class ScanActivity extends AppCompatActivity {
                         String table = jsonobject.getString("table");
                         String restaurantID = jsonobject.getString("restaurantID");
                         Order order = new Order(ScanActivity.this);
-                        order.execute("getMenu", restaurantID);
+                        order.execute("getMenu", restaurantID, table);
 
                     } catch (JSONException e) {
 

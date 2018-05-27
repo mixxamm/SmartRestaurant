@@ -3,6 +3,7 @@ package com.smartrestaurant.mixxamm.smartrestaurant;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -34,7 +35,7 @@ public class Order extends AsyncTask<String, Void, String> {
         context = context1;
     }
 
-    private String type, category, name, price, eta;
+    private String type, category, name, price, eta, restaurantID, tableID;
     @Override
     protected String doInBackground(String... params) {
         try {
@@ -46,7 +47,8 @@ public class Order extends AsyncTask<String, Void, String> {
         }
         type = params[0];
         if("getMenu".equals(type)){
-            String restaurantID = params[1];
+            restaurantID = params[1];
+            tableID = params[2];
             String urlString = "https://smartpass.one/smartrestaurant/getmenu.php";
             try {
                 URL url = new URL(urlString);
@@ -89,7 +91,7 @@ public class Order extends AsyncTask<String, Void, String> {
         }
         else if("placeOrder".equals(type)){
             String restaurantID = params[1];
-            String tableID = params[2];
+            tableID = params[2];
             String order = params[3];
             String urlString = "https://smartpass.one/smartrestaurant/placeorder.php";
             try {
@@ -182,7 +184,9 @@ public class Order extends AsyncTask<String, Void, String> {
             intent.putExtra("listNames", strListNames);
             intent.putExtra("listPrices", strListPrices);
             intent.putExtra("listCates", strListCats);
-
+            intent.putExtra("restaurantID", restaurantID);
+            intent.putExtra("tableID", tableID);
+            Toast.makeText(context, tableID, Toast.LENGTH_SHORT).show();
             context.startActivity(intent);
         }
 

@@ -16,6 +16,7 @@ public class MenuActivity extends AppCompatActivity {
     private ListView lvLijst;
     CustomListviewAdaptor adaptor;
     Button btnBetalen;
+    String restaurantID, tableID, stringOrder = "";
     private double dblTotaal = 0;
 
     @Override
@@ -26,10 +27,13 @@ public class MenuActivity extends AppCompatActivity {
 
             lvLijst = findViewById(R.id.lvLijst);
 
+            //RestaurantID ophalen
+            restaurantID = getIntent().getExtras().getString("restaurantID");
+            tableID = getIntent().getExtras().getString("tableID");
             //Lijsten ophalen
             String[] listProducts = getIntent().getStringArrayExtra("listProducts");
             final String[] listPrices = getIntent().getStringArrayExtra("listPrices");
-            //String[] listNames = getIntent().getStringArrayExtra("listNames");
+            final String[] listNames = getIntent().getStringArrayExtra("listNames");
             //String[] listCates = getIntent().getStringArrayExtra("listCates");
             adaptor = new CustomListviewAdaptor(listProducts, this);
             lvLijst.setAdapter(adaptor);
@@ -47,14 +51,17 @@ public class MenuActivity extends AppCompatActivity {
                         double dblPriceOne =  Double.parseDouble(listPrices[intTeller]);
                         TextView txtAantal = lvLijst.getChildAt(intTeller).findViewById(R.id.aantal);
                         int intPCount = Integer.parseInt(txtAantal.getText().toString());
-
+                        if(intPCount != 0){
+                            String product = listNames[intTeller];
+                            stringOrder += product + ":" + Integer.toString(intPCount) + ",";
+                        }
                         double dblPrice = dblPriceOne * intPCount;
                         dblTotaal += Math.round(dblPrice);
                         intTeller++;
                     }
 
                     Order order = new Order(MenuActivity.this);
-                    order.execute("placeOrder", "1", "1", "order");
+                    order.execute("placeOrder", restaurantID, tableID, stringOrder);
                 }
             });
 
