@@ -1,5 +1,6 @@
 package com.smartrestaurant.mixxamm.smartrestaurant;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -186,8 +187,12 @@ public class Order extends AsyncTask<String, Void, String> {
             intent.putExtra("listCates", strListCats);
             intent.putExtra("restaurantID", restaurantID);
             intent.putExtra("tableID", tableID);
-            Toast.makeText(context, tableID, Toast.LENGTH_SHORT).show();
             context.startActivity(intent);
+        }
+        else if("placeOrder".equals(type)){
+            Intent intent = new Intent(context, Test.class);
+            context.startActivity(intent);
+            ((Activity)context).finish();
         }
 
     }

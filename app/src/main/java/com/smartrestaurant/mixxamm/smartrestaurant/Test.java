@@ -14,6 +14,6 @@ public class Test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         TextView textView = findViewById(R.id.textViewTest);
-        textView.setText(category + name + price);
+        textView.setText("Bestelling is geplaatst.");
     }
 }

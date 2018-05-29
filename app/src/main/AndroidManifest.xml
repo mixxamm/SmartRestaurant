@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.smartrestaurant.mixxamm.smartrestaurant.MenuActivity" />
+        <activity android:name="com.smartrestaurant.mixxamm.smartrestaurant.MenuActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name="com.smartrestaurant.mixxamm.smartrestaurant.ScanActivity" />
         <activity android:name="com.smartrestaurant.mixxamm.smartrestaurant.Test"></activity>
     </application>
