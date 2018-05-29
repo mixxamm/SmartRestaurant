@@ -6,39 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.smartrestaurant.mixxamm.smartrestaurant.MenuActivity">
 
-    <Button
-        android:id="@+id/btnBetalen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Betalen"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvLijst"
-        tools:text="Betalen" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/notitie"
-        android:hint="Notitie"
-        android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/btnBetalen"
-        android:focusedByDefault="false"/>
-
-    <ListView
-        android:id="@+id/lvLijst"
-        android:layout_width="0dp"
-        android:layout_height="435dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/notitie">
-
-    </ListView>
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

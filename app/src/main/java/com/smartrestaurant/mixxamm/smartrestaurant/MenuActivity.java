@@ -31,14 +31,8 @@ public class MenuActivity extends AppCompatActivity {
 
             //RestaurantID ophalen
             restaurantID = getIntent().getExtras().getString("restaurantID");
-            tableID = getIntent().getExtras().getString("tableID");
             //Lijsten ophalen
-            String[] listProducts = getIntent().getStringArrayExtra("listProducts");
-            final String[] listPrices = getIntent().getStringArrayExtra("listPrices");
-            final String[] listNames = getIntent().getStringArrayExtra("listNames");
             //String[] listCates = getIntent().getStringArrayExtra("listCates");
-            adaptor = new CustomListviewAdaptor(listProducts, this);
-            lvLijst.setAdapter(adaptor);
 
             btnBetalen = findViewById(R.id.btnBetalen);
 

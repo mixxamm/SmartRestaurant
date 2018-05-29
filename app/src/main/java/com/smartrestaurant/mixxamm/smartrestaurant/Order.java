@@ -1,10 +1,7 @@
 package com.smartrestaurant.mixxamm.smartrestaurant;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -24,9 +21,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -141,59 +135,7 @@ public class Order extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result){
 
-        if("getMenu".equals(type)){
-            List<String> listCategories = new ArrayList<>();
-            List<String> listNames = new ArrayList<>();
-            List<String> listProducts = new ArrayList<>();
-            List<String> listPrices = new ArrayList<>();
 
-
-            StringTokenizer STNAM = new StringTokenizer(name, "|");
-            StringTokenizer STPR = new StringTokenizer(price, "|");
-            StringTokenizer STCAT = new StringTokenizer(category, "|");
-
-            //Product lijsten aanmaken voor listview
-            while(STNAM.hasMoreTokens()) {
-                //Vars
-                String strCat = STCAT.nextToken();
-                String strName = STNAM.nextToken();
-                String strPrice = STPR.nextToken();
-
-
-                String product = strCat + ": " + strName + ", €" + strPrice.replace(".", ",");
-                listProducts.add(product);
-                listNames.add(strName);
-                listCategories.add(strCat);
-                listPrices.add(strPrice);
-            }
-            //Lijsten omzetten
-
-            String[] strListProducts = new String[listProducts.size()];
-            strListProducts = listProducts.toArray(strListProducts);
-
-            String[] strListNames = new String[listNames.size()];
-            strListNames = listNames.toArray(strListNames);
-
-            String[] strListPrices = new String[listPrices.size()];
-            strListPrices = listPrices.toArray(strListPrices);
-
-            String[] strListCats = new String[listCategories.size()];
-            strListCats = listCategories.toArray(strListCats);
-
-            Intent intent = new Intent(context, MenuActivity.class);
-            intent.putExtra("listProducts", strListProducts);
-            intent.putExtra("listNames", strListNames);
-            intent.putExtra("listPrices", strListPrices);
-            intent.putExtra("listCates", strListCats);
-            intent.putExtra("restaurantID", restaurantID);
-            intent.putExtra("tableID", tableID);
-            context.startActivity(intent);
-        }
-        else if("placeOrder".equals(type)){
-            Intent intent = new Intent(context, Test.class);
-            context.startActivity(intent);
-            ((Activity)context).finish();
-        }
 
     }
 
