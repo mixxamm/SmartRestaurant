@@ -66,10 +66,7 @@ public class Order extends AsyncTask<String, Void, String> {
                     result += line;
                 }
 
-                JSONObject jsonObject = new JSONObject(result);
-                category = jsonObject.getString("category");
-                name = jsonObject.getString("name");
-                price = jsonObject.getString("price");
+                //Hier jsonobject zetten
                 bufferedReader.close();
                 inputStream.close();
                 httpsURLConnection.disconnect();
